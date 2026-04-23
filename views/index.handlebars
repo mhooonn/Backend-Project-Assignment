@@ -1,0 +1,19 @@
+<form action="/convert" method="POST">
+  <input type="number" name="amount" placeholder="Amount" required />
+
+  <select name="from">
+    <option value="EUR">EUR</option>
+    <option value="USD">USD</option>
+  </select>
+
+  <select name="to">
+    <option value="USD">USD</option>
+    <option value="EUR">EUR</option>
+  </select>
+
+  <button type="submit">Convert</button>
+</form>
+
+{{#if result}}
+  <h2>Result: {{result}}</h2>
+{{/if}}
