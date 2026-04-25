@@ -26,6 +26,7 @@ const getConversions = async (req, res) => {
     }
 };
 
+// get one by id
 const getConversion = async (req, res) => {
     const id = req.params.id;
     try {
@@ -39,8 +40,30 @@ const getConversion = async (req, res) => {
     }
 };
 
+// delete one by id
+const deleteConversion = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const conversion = await Conversion.findById(id);
+
+        // check if conversion can be found
+        if (!conversion) {
+        return res.status(404).json({message: "Not found"});
+        }
+
+        await conversion.deleteOne();
+
+        res.json({message: "Deleted"});
+
+    } catch (err) {
+        console.log(err)
+    }
+};
+
+
 module.exports = {
     saveConversion,
     getConversions,
-    getConversion
+    getConversion,
+    deleteConversion
 };
