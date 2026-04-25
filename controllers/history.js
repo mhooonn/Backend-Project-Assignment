@@ -1,4 +1,4 @@
-const Conversion = require ('/models/conversion');
+const Conversion = require ('../models/conversion');
 
 // save conversion to db
 const saveConversion = async (req, res) => {

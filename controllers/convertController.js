@@ -1,4 +1,5 @@
 // controllers/convertController.js
+const Conversion = require("../models/Conversion");
 
 const convertCurrency = async (req, res) => {
   try {

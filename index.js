@@ -26,6 +26,7 @@ app.set("views", "./views");
 
 // 🔹 routes
 app.use("/", convertRoutes);
+app.use("/api/conversions", convertRoutes);
 
 // 🔹 home route
 app.get("/", (req, res) => {
