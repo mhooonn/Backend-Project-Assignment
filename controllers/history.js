@@ -26,7 +26,21 @@ const getConversions = async (req, res) => {
     }
 };
 
+const getConversion = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const conversion = await Conversion.findById(id);
+        if (conversion) {
+            res.status(200).json(conversion);
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }
+};
+
 module.exports = {
     saveConversion,
-    getConversions
+    getConversions,
+    getConversion
 };
