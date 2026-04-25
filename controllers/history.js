@@ -9,11 +9,24 @@ const saveConversion = async (req, res) => {
 
     res.status(201).json(conversion);
 
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  } catch (err) {
+        console.log(err)
+    }
+};
+
+// get all 
+const getConversions = async (req, res) => {
+  try {
+    const conversions = await Conversion.find();
+
+    res.json(conversions);
+
+  } catch (err) {
+        console.log(err)
+    }
 };
 
 module.exports = {
-    saveConversion
+    saveConversion,
+    getConversions
 };
