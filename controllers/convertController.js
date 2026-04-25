@@ -26,6 +26,13 @@ const convertCurrency = async (req, res) => {
 
     const result = data.rates[to];
 
+    await Conversion.create({
+      from,
+      to,
+      amount,
+      result
+    });
+
     // if using Handlebars (SSR)
     res.render("index", {
       result,
