@@ -1,9 +1,21 @@
 // controllers/convertController.js
 const Conversion = require("../models/Conversion");
+const { validationResult } = require("express-validator");
 
 const convertCurrency = async (req, res) => {
   try {
     const { amount, from, to } = req.body;
+
+    const errors = validationResult(req);
+
+if (!errors.isEmpty()) {
+  return res.render("index", {
+    errors: errors.array(),
+    amount,
+    from,
+    to
+  });
+}
 
     // basic validation
     if (!amount || !from || !to) {
