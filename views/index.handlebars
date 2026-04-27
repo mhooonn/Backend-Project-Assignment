@@ -1,4 +1,12 @@
-<form action="api/conversions/convert" method="POST">
+{{#if errors}}
+  <ul style="color: red;">
+    {{#each errors}}
+      <li>{{this.msg}}</li>
+    {{/each}}
+  </ul>
+{{/if}}
+
+<form action="/api/conversions/convert" method="POST">
   <input type="number" name="amount" placeholder="Amount" required />
 
   <select name="from">

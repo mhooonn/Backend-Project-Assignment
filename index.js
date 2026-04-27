@@ -48,7 +48,7 @@ app.post("/history/:id/delete", async (req, res) => {
 app.use("/api/conversions", convertRoutes);
 
 app.post(
-  "/convert",
+  "/api/conversions/convert",
   [
     body("amount")
       .isFloat({ gt: 0 })
