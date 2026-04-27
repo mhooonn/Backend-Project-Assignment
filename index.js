@@ -36,6 +36,12 @@ app.get("/history", async (req, res) => {
     res.render("history", {conversions});
 });
 
+// delete one from history
+app.post("/history/:id/delete", async (req, res) => {
+    await Conversion.findByIdAndDelete(req.params.id);
+    res.redirect("/history");
+});
+
 app.use("/api/conversions", convertRoutes);
 
 // 🔹 server

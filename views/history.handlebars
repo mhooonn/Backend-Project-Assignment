@@ -18,6 +18,11 @@
                 <td>{{this.to}}</td>
                 <td>{{this.amount}}</td>
                 <td>{{this.result}}</td>
+                 <td>
+                    <form action="/history/{{this._id}}/delete" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>
@@ -25,6 +30,6 @@
     {{else}}
         <p>No conversions yet.</p>
     {{/if}}
-    
+
     <a href="/">Back to converter</a>
 </div>
