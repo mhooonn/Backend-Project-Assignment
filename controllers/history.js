@@ -28,15 +28,24 @@ const getConversions = async (req, res) => {
 
 // get one by id
 const getConversion = async (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
+
+    // guard against non-ObjectId values like "favicon.ico"
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+        return res.status(400).json({ msg: 'Invalid ID' });
+    }
+
     try {
         const conversion = await Conversion.findById(id);
-        if (conversion) {
-            res.status(200).json(conversion);
+
+        if (!conversion) {
+            return res.status(404).json({ msg: 'Conversion not found' });
         }
-    }
-    catch (err) {
-        console.log(err)
+
+        res.status(200).json(conversion);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: 'Server error' });
     }
 };
 
