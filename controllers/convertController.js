@@ -17,14 +17,7 @@ if (!errors.isEmpty()) {
   });
 }
 
-    // basic validation
-    if (!amount || !from || !to) {
-      return res.status(400).send("All fields are required");
-    }
-
-    if (isNaN(amount)) {
-      return res.status(400).send("Amount must be a number");
-    }
+    
 
     // frankfurter API URL
     const url = `https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=${to}`;
