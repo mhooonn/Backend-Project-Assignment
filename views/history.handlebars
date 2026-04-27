@@ -1,1 +1,28 @@
-<h1>Conversion history</h1>
+<div class="container">
+    <h1>Conversion History</h1>
+
+    {{#if conversions.length}}
+    <table>
+        <thead>
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Amount</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each conversions}}
+            <tr>
+                <td>{{this.from}}</td>
+                <td>{{this.to}}</td>
+                <td>{{this.amount}}</td>
+                <td>{{this.result}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+        <p>No conversions yet.</p>
+    {{/if}}
+</div>

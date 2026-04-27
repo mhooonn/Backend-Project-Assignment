@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 
 // 🔹 routes
 app.get("/history", async (req, res) => {
-  
+    const conversions = await Conversion.find().sort({ _id: -1 }).lean();
     res.render("history", {conversions});
 });
 
