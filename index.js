@@ -14,6 +14,8 @@ const Conversion = require("./models/Conversion");
 // 🔹 middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+// static files
+app.use(express.static('public'));
 
 // 🔹 view engine (ONLY if using Handlebars)
 const { engine } = require("express-handlebars");
