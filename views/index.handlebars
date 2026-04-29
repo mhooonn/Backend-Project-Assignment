@@ -1,33 +1,37 @@
-{{#if errors}}
-  <ul style="color: red;">
-    {{#each errors}}
-      <li>{{this.msg}}</li>
-    {{/each}}
-  </ul>
-{{/if}}
+<div class="container">
+  <h1>Currency Converter</h1>
 
-<form action="/api/conversions/convert" method="POST">
-  <input type="number" name="amount" placeholder="Amount" required />
+  {{#if errors}}
+    <ul class="errors">
+      {{#each errors}}
+        <li>{{this.msg}}</li>
+      {{/each}}
+    </ul>
+  {{/if}}
 
-  <select name="from" aria-label="From currency">
-    {{#each currencyList}}
+  <form class="converter-form" action="/api/conversions/convert" method="POST">
+    <input type="number" name="amount" placeholder="Amount" required />
+
+    <select name="from" aria-label="From currency">
+      {{#each currencyList}}
         <option value="{{this.code}}">{{this.code}} - {{this.name}}</option>
-    {{/each}}
-</select>
+      {{/each}}
+    </select>
 
-<select name="to" aria-label="To currency">
-    {{#each currencyList}}
+    <select name="to" aria-label="To currency">
+      {{#each currencyList}}
         <option value="{{this.code}}">{{this.code}} - {{this.name}}</option>
-    {{/each}}
-</select>
+      {{/each}}
+    </select>
 
-  <button type="submit">Convert</button>
-</form>
+    <button type="submit">Convert</button>
+  </form>
 
+  {{#if result}}
+    <div class="result-box">
+      <h2>Result: {{result}}</h2>
+    </div>
+  {{/if}}
 
-
-{{#if result}}
-  <h2>Result: {{result}}</h2>
-{{/if}}
-
-<a href="/history">History</a>
+  <a href="/history">View history</a>
+</div>
