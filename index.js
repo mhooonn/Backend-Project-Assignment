@@ -31,8 +31,13 @@ mongoose.connect(uri)
   .catch((err) => console.log(err));
 
 // 🔹 home route
-app.get("/", (req, res) => {
-  res.render("index"); // instead of res.send
+app.get("/", async (req, res) => {
+    const response = await fetch("https://api.frankfurter.app/currencies");
+    const currencies = await response.json();
+
+    const currencyList = Object.entries(currencies).map(([code, name]) => ({code, name}));
+
+    res.render("index", {currencyList});
 });
 
 // 🔹 routes

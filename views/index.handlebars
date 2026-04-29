@@ -9,18 +9,22 @@
 <form action="/api/conversions/convert" method="POST">
   <input type="number" name="amount" placeholder="Amount" required />
 
-  <select name="from">
-    <option value="EUR">EUR</option>
-    <option value="USD">USD</option>
-  </select>
+  <select name="from" aria-label="From currency">
+    {{#each currencyList}}
+        <option value="{{this.code}}">{{this.code}} - {{this.name}}</option>
+    {{/each}}
+</select>
 
-  <select name="to">
-    <option value="USD">USD</option>
-    <option value="EUR">EUR</option>
-  </select>
+<select name="to" aria-label="To currency">
+    {{#each currencyList}}
+        <option value="{{this.code}}">{{this.code}} - {{this.name}}</option>
+    {{/each}}
+</select>
 
   <button type="submit">Convert</button>
 </form>
+
+
 
 {{#if result}}
   <h2>Result: {{result}}</h2>
