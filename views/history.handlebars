@@ -20,7 +20,7 @@
                 <td>{{this.result}}</td>
                  <td>
                     <form action="/history/{{this._id}}/delete" method="POST">
-                        <button type="submit">Delete</button>
+                        <button type="submit" aria-label="Delete conversion from {{this.from}} to {{this.to}}">Delete</button>
                     </form>
                 </td>
             </tr>
@@ -31,5 +31,5 @@
         <p>No conversions yet.</p>
     {{/if}}
 
-    <a href="/">Back to converter</a>
+    <a href="/" aria-label="Go back to currency converter">Back to converter</a>
 </div>
