@@ -156,3 +156,12 @@ select:focus {
 .app-content {
     width: 100%;
 }
+
+.favorite-btn {
+    background: #333;
+    margin-right: 0.5rem;
+}
+
+.favorite-btn:hover {
+    background: #111;
+}

@@ -10,6 +10,7 @@ const { convertCurrency } = require("./controllers/convertController");
 // 🔹 import routes
 const convertRoutes = require("./routes/convertRoutes");
 const Conversion = require("./models/Conversion");
+const Favorite = require("./models/favorite");
 
 // 🔹 middleware
 app.use(express.urlencoded({ extended: true }));
@@ -65,6 +66,33 @@ app.get("/history", async (req, res) => {
 app.post("/history/:id/delete", async (req, res) => {
     await Conversion.findByIdAndDelete(req.params.id);
     res.redirect("/history");
+});
+
+app.get("/favorites", async (req, res) => {
+  const favorites = await Favorite.find().sort({ _id: -1 }).lean();
+
+  res.render("favorites", {
+    favorites,
+    title: "Favorites"
+  });
+});
+
+app.post("/favorites", async (req, res) => {
+  const { from, to, amount, result } = req.body;
+
+  await Favorite.create({
+    from,
+    to,
+    amount,
+    result
+  });
+
+  res.redirect("/favorites");
+});
+
+app.post("/favorites/:id/delete", async (req, res) => {
+  await Favorite.findByIdAndDelete(req.params.id);
+  res.redirect("/favorites");
 });
 
 app.use("/api/conversions", convertRoutes);

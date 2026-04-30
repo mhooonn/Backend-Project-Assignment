@@ -1,0 +1,36 @@
+<div class="container">
+  {{#if favorites.length}}
+    <table>
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Amount</th>
+          <th>Result</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {{#each favorites}}
+          <tr>
+            <td>{{this.from}}</td>
+            <td>{{this.to}}</td>
+            <td>{{this.amount}}</td>
+            <td>{{this.result}}</td>
+            <td>
+              <form action="/favorites/{{this._id}}/delete" method="POST">
+                <button type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <p>No favorites yet.</p>
+  {{/if}}
+
+  <a href="/">Back to converter</a>
+  <a href="/history">Back to history</a>
+</div>

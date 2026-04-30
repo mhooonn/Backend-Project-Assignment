@@ -19,10 +19,18 @@
                 <td>{{this.amount}}</td>
                 <td>{{this.result}}</td>
                  <td>
-                    <form action="/history/{{this._id}}/delete" method="POST">
-                        <button type="submit" aria-label="Delete conversion from {{this.from}} to {{this.to}}">Delete</button>
+                    <form action="/favorites" method="POST" style="display:inline;">
+                     <input type="hidden" name="from" value="{{this.from}}">
+                     <input type="hidden" name="to" value="{{this.to}}">
+                     <input type="hidden" name="amount" value="{{this.amount}}">
+                     <input type="hidden" name="result" value="{{this.result}}">
+                     <button type="submit" class="favorite-btn">Favorite</button>
                     </form>
-                </td>
+
+  <form action="/history/{{this._id}}/delete" method="POST" style="display:inline;">
+    <button type="submit">Delete</button>
+  </form>
+</td>
             </tr>
             {{/each}}
         </tbody>
@@ -30,6 +38,6 @@
     {{else}}
         <p>No conversions yet.</p>
     {{/if}}
-
+    <a href="/favorites">View favorites</a>
     <a href="/" aria-label="Go back to currency converter">Back to converter</a>
 </div>
