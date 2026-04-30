@@ -1,14 +1,32 @@
 const express = require("express");
-const router = express.Router();
+const { body } = require("express-validator");
 const { convertCurrency } = require("../controllers/convertController");
 
-const {saveConversion, getConversions, getConversion, deleteConversion} = require("../controllers/history")
+const router = express.Router();
 
-router.post("/convert", convertCurrency);
+router.post(
+  "/convert",
+  [
+    body("amount")
+      .isFloat({ gt: 0 })
+      .withMessage("Amount must be a positive number"),
 
-router.post("/", saveConversion);
-router.get("/", getConversions);
-router.get("/:id", getConversion);
-router.delete("/:id", deleteConversion);
+    body("from")
+      .notEmpty()
+      .withMessage("From currency is required"),
+
+    body("to")
+      .notEmpty()
+      .withMessage("To currency is required"),
+
+    body("to").custom((value, { req }) => {
+      if (value === req.body.from) {
+        throw new Error("Currencies must be different");
+      }
+      return true;
+    })
+  ],
+  convertCurrency
+);
 
 module.exports = router;

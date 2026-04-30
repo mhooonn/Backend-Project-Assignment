@@ -6,15 +6,23 @@ const convertCurrency = async (req, res) => {
   try {
     const { amount, from, to } = req.body;
 
-    const errors = validationResult(req);
+const errors = validationResult(req);
 
 if (!errors.isEmpty()) {
+  const response = await fetch("https://api.frankfurter.app/currencies");
+  const currencies = await response.json();
+
+  const currencyList = Object.entries(currencies).map(([code, name]) => ({
+    code,
+    name
+  }));
+
   return res.render("index", {
     errors: errors.array(),
-    amount,
-    from,
-    to
+    currencyList,
+    title: "Currency Converter"
   });
+
 }
 
     
