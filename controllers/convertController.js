@@ -4,30 +4,27 @@ const { validationResult } = require("express-validator");
 
 const convertCurrency = async (req, res) => {
   try {
+    const errors = validationResult(req);
+
+    const responseCurrencies = await fetch("https://api.frankfurter.app/currencies");
+    const currencies = await responseCurrencies.json();
+
+    const currencyList = Object.entries(currencies).map(([code, name]) => ({
+      code,
+      name
+    }));
+
+    if (!errors.isEmpty()) {
+      return res.render("index", {
+        errors: errors.array(),
+        currencyList,
+        title: "Currency Converter",
+        oldInput: req.body
+      });
+    }
+
     const { amount, from, to } = req.body;
 
-const errors = validationResult(req);
-
-if (!errors.isEmpty()) {
-  const response = await fetch("https://api.frankfurter.app/currencies");
-  const currencies = await response.json();
-
-  const currencyList = Object.entries(currencies).map(([code, name]) => ({
-    code,
-    name
-  }));
-
-  return res.render("index", {
-    errors: errors.array(),
-    currencyList,
-    title: "Currency Converter"
-  });
-
-}
-
-    
-
-    // frankfurter API URL
     const url = `https://api.frankfurter.app/latest?amount=${amount}&from=${from}&to=${to}`;
 
     const response = await fetch(url);
@@ -46,16 +43,12 @@ if (!errors.isEmpty()) {
       result
     });
 
-    // if using Handlebars (SSR)
-    res.render("index", {
+    return res.render("index", {
       result,
-      amount,
-      from,
-      to
+      currencyList,
+      title: "Currency Converter",
+      oldInput: req.body
     });
-
-    // OR if API response (JSON), use this instead:
-    // res.json({ result });
 
   } catch (error) {
     console.error(error);
