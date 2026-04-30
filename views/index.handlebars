@@ -10,17 +10,17 @@
   {{/if}}
 
   <form class="converter-form" action="/api/conversions/convert" method="POST">
-    <input type="number" name="amount" placeholder="Amount" required />
+    <input type="number" name="amount" placeholder="Amount" value="{{oldInput.amount}}" required />
 
     <select name="from" aria-label="From currency">
       {{#each currencyList}}
-        <option value="{{this.code}}">{{this.code}} - {{this.name}}</option>
+        <option value="{{this.code}}" {{#if (eq this.code oldInput.from)}}selected{{/if}}>{{this.code}} - {{this.name}}</option>
       {{/each}}
     </select>
 
     <select name="to" aria-label="To currency">
       {{#each currencyList}}
-        <option value="{{this.code}}">{{this.code}} - {{this.name}}</option>
+        <option value="{{this.code}}" {{#if (eq this.code oldInput.to)}}selected{{/if}}>{{this.code}} - {{this.name}}</option>
       {{/each}}
     </select>
 
