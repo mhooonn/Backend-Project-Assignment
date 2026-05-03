@@ -19,5 +19,4 @@ const conversionSchema = new mongoose.Schema({
   }
 });
 
-// ai:lta kysytty bugi neuvo :D
 module.exports = mongoose.models.Conversion || mongoose.model("Conversion", conversionSchema);
