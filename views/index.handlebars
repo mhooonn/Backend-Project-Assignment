@@ -1,37 +1,59 @@
-<div class="container">
-  
+<main class="container">
 
   {{#if errors}}
-    <ul class="errors">
+    <ul class="errors" role="alert" aria-label="Form errors">
       {{#each errors}}
         <li>{{this.msg}}</li>
       {{/each}}
     </ul>
   {{/if}}
 
-  <form class="converter-form" action="/api/conversions/convert" method="POST">
-    <input type="number" name="amount" placeholder="Amount" value="{{oldInput.amount}}" required />
+  <h1>Currency Converter</h1>
 
-    <select name="from" aria-label="From currency">
+  <form class="converter-form" action="/api/conversions/convert" method="POST" aria-label="Currency converter form" novalidate>
+
+    <label for="amount">Amount</label>
+    <input 
+      type="number" 
+      id="amount"
+      name="amount" 
+      placeholder="Enter amount"
+      value="{{oldInput.amount}}" 
+      required
+      aria-required="true"
+      min="0"
+      aria-describedby="amount-hint" />
+    <span id="amount-hint" class="hint">Enter a positive number</span>
+
+    <label for="from">From currency</label>
+    <select id="from" name="from" aria-required="true">
       {{#each currencyList}}
-        <option value="{{this.code}}" {{#if (eq this.code ../oldInput.from)}}selected{{/if}}>{{this.code}} - {{this.name}}</option>
+        <option value="{{this.code}}" {{#if (eq this.code ../oldInput.from)}}selected{{/if}}>
+          {{this.code}} - {{this.name}}
+        </option>
       {{/each}}
     </select>
 
-    <select name="to" aria-label="To currency">
+    <label for="to">To currency</label>
+    <select id="to" name="to" aria-required="true">
       {{#each currencyList}}
-        <option value="{{this.code}}" {{#if (eq this.code ../oldInput.to)}}selected{{/if}}>{{this.code}} - {{this.name}}</option>
+        <option value="{{this.code}}" {{#if (eq this.code ../oldInput.to)}}selected{{/if}}>
+          {{this.code}} - {{this.name}}
+        </option>
       {{/each}}
     </select>
 
-    <button type="submit">Convert</button>
+    <button type="submit" aria-label="Convert currency">Convert</button>
   </form>
 
   {{#if result}}
-    <div class="result-box">
+    <section class="result-box" aria-live="polite" aria-label="Conversion result">
       <h2>Result: {{result}}</h2>
-    </div>
+    </section>
   {{/if}}
 
-  <a href="/history">View history</a>
-</div>
+  <nav aria-label="Page navigation">
+    <a href="/history">View history</a>
+  </nav>
+
+</main>
